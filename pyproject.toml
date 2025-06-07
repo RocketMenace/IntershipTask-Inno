@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "intershiptask-inno"
+version = "0.1.0"
+description = ""
+authors = ["RocketMenace <grizzlygit777@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "5.1.1"
+djangorestframework = "^3.16.0"
+psycopg2-binary = "^2.9.10"
+drf-spectacular = "^0.28.0"
+pytest = "^8.4.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
