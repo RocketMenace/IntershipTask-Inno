@@ -18,7 +18,14 @@ class ForecastRecord(BaseModel):
     class Meta:
         db_table_comment = "ForecastRecords"
         db_table = "forecast_records"
-        ordering = ["created_at"]
+        ordering = ["-created_at"]
         indexes = [models.Index(fields=["city"])]
         verbose_name = "forecast_record"
         verbose_name_plural = "forecast_records"
+        constraints = [
+            models.CheckConstraint(
+                name="max_temp_gte_min_temp",
+                check=models.Q(max_temperature__gte=models.F("min_temperature")),
+                violation_error_message="Maximum temperature must be greater than or equal to minimum temperature",
+            )
+        ]
