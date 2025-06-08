@@ -10,8 +10,11 @@ class CurrentWeatherAPIView(APIView):
     serializer_class = CurrentWeatherSerializer
 
     def get(self, request: Request):
-        weather_data = get_weather_data(request.query_params)
-        serializer = self.serializer_class(data=weather_data)
+        serializer = self.serializer_class(data=request.query_params)
         if serializer.is_valid(raise_exception=True):
-            return Response(data=serializer.validated_data, status=status.HTTP_200_OK)
+            weather_data = get_weather_data(request.query_params)
+            return Response(
+                data=serializer.to_internal_value(weather_data),
+                status=status.HTTP_200_OK,
+            )
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
