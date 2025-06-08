@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date, timedelta
 
 
 class BaseModel(models.Model):
@@ -27,5 +28,11 @@ class ForecastRecord(BaseModel):
                 name="max_temp_gte_min_temp",
                 check=models.Q(max_temperature__gte=models.F("min_temperature")),
                 violation_error_message="Maximum temperature must be greater than or equal to minimum temperature",
-            )
+            ),
+            models.CheckConstraint(
+                name="date_between_current_date_and_ten_days_after",
+                check=models.Q(date__gte=date.today())
+                & models.Q(date__lte=date.today() + timedelta(days=10)),
+                violation_error_message="Date can't be lower than current date.",
+            ),
         ]
