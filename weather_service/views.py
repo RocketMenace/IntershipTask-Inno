@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from rest_framework.request import Request
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CurrentWeatherSerializer
+from .services import get_weather_data
 
-# Create your views here.
+
+
+class CurrentWeatherAPIView(APIView):
+
+    serializer_class = CurrentWeatherSerializer
+
+    def get(self, request: Request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            weather_data = get_weather_data(serializer.city)
+            return Response(data=self.serializer_class(data=weather_data), status=status.HTTP_200_OK)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
