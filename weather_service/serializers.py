@@ -4,6 +4,7 @@ from rest_framework import serializers
 from datetime import datetime, timedelta
 
 from rest_framework.exceptions import ValidationError
+from .models import ForecastRecord
 
 
 class CurrentWeatherSerializer(serializers.Serializer):
@@ -54,3 +55,7 @@ class TemperatureForecastSerializer(serializers.Serializer):
         return data
 
 
+class CreateForecastSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ForecastRecord
+        exclude = ["id", "created_at", "updated_at"]

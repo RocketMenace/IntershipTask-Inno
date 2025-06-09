@@ -8,4 +8,5 @@ app_name = WeatherServiceConfig.name
 urlpatterns = [
     path("current", CurrentWeatherAPIView.as_view(), name="current_weather"),
     path("forecast", TemperatureForecastAPIView.as_view(), name="temp_forecast"),
+    # path("forecast", CreateForecastRecordAPIView.as_view(), name="create_forecast_record")
 ]
