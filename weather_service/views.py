@@ -8,8 +8,10 @@ from .serializers import (
     CreateForecastSerializer,
 )
 from .services import get_weather_data, get_weather_data_on_date, create_forecast_record
+from .views_docs import current_weather_docs, temperature_forecast
 
 
+@current_weather_docs
 class CurrentWeatherAPIView(APIView):
     serializer_class = CurrentWeatherSerializer
 
@@ -24,6 +26,7 @@ class CurrentWeatherAPIView(APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@temperature_forecast
 class TemperatureForecastAPIView(APIView):
     serializer_class = TemperatureForecastSerializer
 
