@@ -93,6 +93,15 @@ DATABASES = {
     }
 }
 
+# REST_FRAMEWORK settings.
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DATE_INPUT_FORMATS": [
+        "%d.%m.%Y",
+    ],
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
